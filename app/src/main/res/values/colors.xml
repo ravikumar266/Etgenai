@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base Monolith Theme Colors (Light Theme) -->
+    <color name="monolith_bg">#F5F6F8</color>
+    <color name="surface_base">#FFFFFF</color>
+    <color name="surface_container_lowest">#FFFFFF</color>
+    <color name="surface_container_low">#F8F9FA</color>
+    <color name="surface_container">#F3F4F6</color>
+    <color name="surface_container_high">#E5E7EB</color>
+    
+    <!-- Primary Accents -->
+    <color name="primary">#2F80ED</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#E8F0FE</color>
+    
+    <!-- Secondary/User Colors -->
+    <color name="secondary">#1F4E8C</color>
+    <color name="secondary_container">#144684</color>
+    <color name="on_secondary_container">#8eb6fb</color>
+    
+    <!-- Tertiary/Alerts -->
+    <color name="tertiary">#FFD700</color>
+    <color name="tertiary_container">#c9a900</color>
+    <color name="error">#ffb4ab</color>
+    <color name="error_container">#93000a</color>
+    
+    <!-- Text / Outlines (Light Theme) -->
+    <color name="on_surface">#1A1C1E</color>
+    <color name="on_surface_variant">#535F70</color>
+    <color name="outline">#74777F</color>
+    <color name="outline_variant">#C4C6D0</color>
+    
+    <!-- Custom Nav Active Colors (matches reference design) -->
+    <color name="nav_active_tint">#3ECFA0</color>
+    <color name="nav_active_circle">#163124</color>
+
+    <!-- Legacy Mappings for other elements -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

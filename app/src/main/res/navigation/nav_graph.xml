@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/context/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/chatFragment">
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.etgenai.app.ui.chat.ChatFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat">
+        <!-- Argument to open a specific existing thread -->
+        <argument
+            android:name="threadId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.etgenai.app.ui.history.HistoryFragment"
+        android:label="History"
+        tools:layout="@layout/fragment_history">
+        <!-- Action to open thread in chat -->
+        <action
+            android:id="@+id/action_history_to_chat"
+            app:destination="@id/chatFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/chatFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/schedulerFragment"
+        android:name="com.etgenai.app.ui.scheduler.SchedulerFragment"
+        android:label="Scheduler"
+        tools:layout="@layout/fragment_scheduler" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.etgenai.app.ui.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+
+</navigation>

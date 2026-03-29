@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>0x8F2-ENGINE-ALPHA | Terminal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@300;400;500;700&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed": "#d6e3ff",
+              "on-tertiary": "#3a3000",
+              "error-container": "#93000a",
+              "tertiary-fixed-dim": "#e9c400",
+              "surface-dim": "#10141a",
+              "outline-variant": "#414753",
+              "inverse-primary": "#005cba",
+              "on-tertiary-fixed": "#221b00",
+              "surface-container-highest": "#31353c",
+              "tertiary-container": "#c9a900",
+              "tertiary": "#e9c400",
+              "tertiary-fixed": "#ffe16d",
+              "primary-fixed-dim": "#abc7ff",
+              "inverse-on-surface": "#2d3137",
+              "surface-tint": "#abc7ff",
+              "on-primary": "#002f65",
+              "on-tertiary-fixed-variant": "#544600",
+              "on-background": "#dfe2eb",
+              "on-primary-fixed-variant": "#00458e",
+              "surface-container-low": "#181c22",
+              "on-primary-fixed": "#001b3f",
+              "surface-variant": "#31353c",
+              "on-tertiary-container": "#4c3f00",
+              "on-secondary-container": "#8eb6fb",
+              "secondary-fixed-dim": "#a9c7ff",
+              "surface-container-high": "#262a31",
+              "on-surface": "#dfe2eb",
+              "primary-container": "#448ffd",
+              "background": "#10141a",
+              "secondary-container": "#144684",
+              "surface-container": "#1c2026",
+              "on-surface-variant": "#c1c6d5",
+              "outline": "#8b919f",
+              "primary-fixed": "#d7e3ff",
+              "primary": "#abc7ff",
+              "surface": "#10141a",
+              "inverse-surface": "#dfe2eb",
+              "on-secondary-fixed-variant": "#144684",
+              "surface-container-lowest": "#0a0e14",
+              "surface-bright": "#353940",
+              "on-primary-container": "#002959",
+              "on-error": "#690005",
+              "on-error-container": "#ffdad6",
+              "on-secondary": "#003063",
+              "on-secondary-fixed": "#001b3d",
+              "error": "#ffb4ab",
+              "secondary": "#a9c7ff"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"],
+              "mono": ["JetBrains Mono"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      body { background-color: #0D1117; }
+      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #31353c; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body text-on-surface flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#0D1117]/70 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+<div class="flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-500">terminal</span>
+<span class="font-['Space_Grotesk'] tracking-widest uppercase text-sm font-bold text-blue-500">0x8F2-ENGINE-ALPHA</span>
+</div>
+<div class="hidden md:flex items-center gap-6 font-mono text-[10px] text-outline">
+<span class="px-2 py-1 bg-surface-container-lowest rounded border border-outline-variant/30">THREAD_ID: B7-X99-PROX</span>
+<span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span> SYSTEM_LIVE</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border border-primary/20">
+<img alt="User Avatar" data-alt="close-up portrait of a high-tech robotic interface with blue glowing circuitry patterns on a matte black finish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGyKjYS_sQUXjImCMuTL5i9CC1qjv9sbeNc35rXICorBHhvegp_-5K-mznOOXrwTejPIChm1n7OJk0cwcIdAzNS2fgHgwIVZ9C8HMW_tdAXKf44PQMABBoTwqnA81IvoIc0IWYVgjCxvu5Sv7T0X9c-Z5WILpGaGihBQ5jP-UrU2P_3Euct0RsoXs2iqqD2gYTfjVnPcdIhJeU5g2Uy3J-O4cQEjUZJbVO1drE7Ry83Mej_UrKlpaFAx1ZBpPbbIrY9Lco0yzdi0hR"/>
+</div>
+</div>
+</div>
+<div class="bg-gradient-to-b from-blue-500/10 to-transparent h-px w-full"></div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex overflow-hidden pt-16 pb-24 md:pb-0">
+<!-- Sidebar: NavigationDrawer (Hidden on Mobile) -->
+<aside class="hidden md:flex flex-col h-full w-72 border-r border-slate-800/50 bg-[#10141a]">
+<div class="p-6 flex items-center gap-3 border-b border-slate-800/30">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">account_tree</span>
+</div>
+<div>
+<h2 class="font-['Space_Grotesk'] text-blue-500 font-bold text-sm">MONOLITH-1</h2>
+<p class="text-[10px] text-slate-400 uppercase tracking-tighter">Active Instance v4.2.0</p>
+</div>
+</div>
+<nav class="flex-1 py-4 flex flex-col divide-y divide-slate-800/30">
+<div class="px-2 space-y-1 pb-4">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/80 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl">chat_bubble</span>
+<span class="font-['Inter'] text-sm font-medium">Threads</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-500/10 text-blue-400 border-r-2 border-blue-500 group" href="#">
+<span class="material-symbols-outlined text-xl">account_tree</span>
+<span class="font-['Inter'] text-sm font-medium">Workflows</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/80 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl">calendar_today</span>
+<span class="font-['Inter'] text-sm font-medium">Scheduler</span>
+</a>
+</div>
+<div class="px-2 pt-4">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800/80 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-xl">settings_input_component</span>
+<span class="font-['Inter'] text-sm font-medium">Dev Settings</span>
+</a>
+</div>
+</nav>
+</aside>
+<!-- Chat Canvas -->
+<section class="flex-1 flex flex-col relative bg-[#0D1117]">
+<!-- Messages Container -->
+<div class="flex-1 overflow-y-auto px-4 md:px-12 py-8 space-y-10">
+<!-- AI Message -->
+<div class="flex flex-col items-start max-w-4xl">
+<div class="flex items-center gap-2 mb-3 px-1">
+<span class="text-[10px] font-mono text-primary uppercase tracking-widest">System Agent</span>
+<span class="text-[10px] font-mono text-outline-variant">T+0.042s</span>
+</div>
+<div class="bg-surface-container-high rounded-xl rounded-tl-none p-5 shadow-xl border border-outline-variant/10 text-on-surface leading-relaxed max-w-[90%] md:max-w-[80%]">
+<p class="text-sm md:text-base">Initialization complete. All sub-systems in <span class="text-tertiary">STANDBY</span>. I have parsed the requested architecture logs. How would you like to proceed with the neural deployment today?</p>
+<div class="mt-4 pt-4 border-t border-outline-variant/20 flex gap-4">
+<div class="flex items-center gap-2 text-[10px] font-mono text-outline">
+<span class="material-symbols-outlined text-xs">analytics</span> METRICS_READY
+                            </div>
+<div class="flex items-center gap-2 text-[10px] font-mono text-outline">
+<span class="material-symbols-outlined text-xs">memory</span> 14.2 GB FREE
+                            </div>
+</div>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-2 mb-3 px-1">
+<span class="text-[10px] font-mono text-outline-variant">User Alpha</span>
+</div>
+<div class="bg-secondary-container rounded-xl rounded-tr-none p-5 text-on-surface leading-relaxed max-w-[90%] md:max-w-[70%] shadow-lg">
+<p class="text-sm md:text-base">Execute protocol ALPHA-9. Pull the latest repository updates from GitHub and prepare a summary briefing for the stakeholder meeting at 1400.</p>
+</div>
+</div>
+<!-- AI Thinking / Response -->
+<div class="flex flex-col items-start max-w-4xl">
+<div class="flex items-center gap-2 mb-3 px-1">
+<span class="text-[10px] font-mono text-primary uppercase tracking-widest">System Agent</span>
+<span class="text-[10px] font-mono text-outline-variant">T+0.891s</span>
+</div>
+<div class="bg-surface-container-high rounded-xl rounded-tl-none p-5 shadow-xl border border-outline-variant/10 text-on-surface leading-relaxed w-full">
+<div class="flex items-center gap-3 mb-4">
+<div class="h-1 flex-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-tertiary w-3/4 animate-pulse"></div>
+</div>
+<span class="text-[10px] font-mono text-tertiary">PROCESSING_DATA</span>
+</div>
+<p class="text-sm md:text-base mb-4">Understood. Connecting to <span class="text-blue-400 font-mono">github.com/monolith-core</span>. I am aggregating the latest 12 commits. Here is the preliminary impact analysis:</p>
+<!-- Bento Grid Data Display -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+<div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant/10">
+<p class="text-[10px] text-outline uppercase font-bold mb-1">Critical Updates</p>
+<p class="text-xs font-mono text-error">! Auth-Module Refactor</p>
+<p class="text-xs font-mono text-on-surface-variant">+ API Endpoint v2.1</p>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant/10">
+<p class="text-[10px] text-outline uppercase font-bold mb-1">System Health</p>
+<div class="flex items-end gap-1">
+<span class="text-xl font-headline font-bold text-tertiary">98.4</span>
+<span class="text-[10px] mb-1">% UPTIME</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Section -->
+<div class="p-4 md:p-8 bg-gradient-to-t from-[#0D1117] via-[#0D1117] to-transparent">
+<div class="max-w-4xl mx-auto space-y-4">
+<!-- Scrolling Action Chips -->
+<div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
+<button class="flex-shrink-0 flex items-center gap-2 px-4 py-2 bg-surface-container-low border border-outline-variant/20 rounded-full text-xs font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm">mail</span> Email Logs
+                        </button>
+<button class="flex-shrink-0 flex items-center gap-2 px-4 py-2 bg-surface-container-low border border-outline-variant/20 rounded-full text-xs font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm">terminal</span> GitHub Sync
+                        </button>
+<button class="flex-shrink-0 flex items-center gap-2 px-4 py-2 bg-surface-container-low border border-outline-variant/20 rounded-full text-xs font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm">description</span> Briefing Gen
+                        </button>
+<button class="flex-shrink-0 flex items-center gap-2 px-4 py-2 bg-surface-container-low border border-outline-variant/20 rounded-full text-xs font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm">share</span> Export Session
+                        </button>
+</div>
+<!-- Input Pill -->
+<div class="relative group">
+<div class="absolute -inset-0.5 bg-gradient-to-r from-primary/30 to-tertiary/30 rounded-full blur opacity-30 group-focus-within:opacity-100 transition duration-500"></div>
+<div class="relative flex items-center bg-surface-container-lowest rounded-full p-1.5 pl-6 border border-outline-variant/30 shadow-2xl">
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-on-surface placeholder-outline font-body text-sm" placeholder="Type command or query..." type="text"/>
+<button class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary hover:scale-105 active:scale-95 transition-all shadow-lg">
+<span class="material-symbols-outlined font-bold">arrow_upward</span>
+</button>
+</div>
+</div>
+<div class="flex justify-center">
+<p class="text-[10px] text-outline-variant font-mono uppercase tracking-[0.2em]">Ready for input · LLM-CORE-77-BETA</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Visible on Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-[#0D1117]/90 backdrop-blur-lg border-t border-slate-800/50 flex justify-around items-center px-4 pb-4 pt-2 shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
+<a class="flex flex-col items-center justify-center text-slate-500 p-2" href="#">
+<span class="material-symbols-outlined">sensors</span>
+<span class="font-['Space_Grotesk'] text-[10px] uppercase tracking-wider mt-1">Status</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 p-2" href="#">
+<span class="material-symbols-outlined">low_priority</span>
+<span class="font-['Space_Grotesk'] text-[10px] uppercase tracking-wider mt-1">Queue</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 p-2" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-['Space_Grotesk'] text-[10px] uppercase tracking-wider mt-1">Logs</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-blue-500/20 text-blue-300 rounded-xl p-2" href="#">
+<span class="material-symbols-outlined">code</span>
+<span class="font-['Space_Grotesk'] text-[10px] uppercase tracking-wider mt-1">Terminal</span>
+</a>
+</nav>
+</body></html>

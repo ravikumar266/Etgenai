@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/chatFragment"
+        android:icon="@drawable/ic_nav_chat"
+        android:title="Chat" />
+    <item
+        android:id="@+id/historyFragment"
+        android:icon="@drawable/ic_nav_history"
+        android:title="History" />
+    <item
+        android:id="@+id/schedulerFragment"
+        android:icon="@drawable/ic_nav_scheduler"
+        android:title="Scheduler" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_nav_settings"
+        android:title="Settings" />
+</menu>

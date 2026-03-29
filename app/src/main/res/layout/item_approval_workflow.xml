@@ -1,0 +1,110 @@
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/outline"
+    android:backgroundTint="@color/surface_container">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⚙ WORKFLOW APPROVAL REQUIRED"
+            android:textColor="@color/tertiary"
+            android:textSize="11sp"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.05"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:id="@+id/tvWorkflowType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- PLAN -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PLAN SUMMARY"
+            android:textColor="@color/outline"
+            android:textSize="10sp"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="6dp"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            android:backgroundTint="@color/surface_container_lowest"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:id="@+id/tvWorkflowSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="13sp"
+                android:padding="12dp"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ACTIONS -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PENDING ACTIONS"
+            android:textColor="@color/outline"
+            android:textSize="10sp"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:id="@+id/tvWorkflowActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/on_surface"
+            android:textSize="13sp"
+            android:lineSpacingExtra="2dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnDenyWorkflow"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:text="DENY"
+                android:textColor="@color/error"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnApproveWorkflow"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="APPROVE"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

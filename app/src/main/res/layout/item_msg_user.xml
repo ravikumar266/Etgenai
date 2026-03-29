@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:gravity="end">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Alpha"
+        android:textColor="@color/outline_variant"
+        android:textSize="10sp"
+        android:textAllCaps="true"
+        android:letterSpacing="0.1"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="monospace" />
+
+    <TextView
+        android:id="@+id/tvUserMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bubble_user"
+        android:padding="16dp"
+        android:textColor="@color/on_surface"
+        android:textSize="15sp"
+        android:layout_marginStart="48dp" />
+</LinearLayout>

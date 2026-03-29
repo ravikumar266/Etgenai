@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="model_options">
+        <item>Axiom Auto</item>
+        <item>GPT-4o</item>
+        <item>Claude 3.5</item>
+        <item>Gemini 1.5 (Fast)</item>
+    </string-array>
+</resources>
