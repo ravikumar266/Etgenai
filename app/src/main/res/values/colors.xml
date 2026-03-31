@@ -34,6 +34,26 @@
     <color name="nav_active_tint">#3ECFA0</color>
     <color name="nav_active_circle">#163124</color>
 
+    <!-- Additional theme colors - Light mode -->
+    <color name="topbar_bg">#B30D1117</color>
+    <color name="divider_color">#332F80ED</color>
+    <color name="attachment_pill_bg">#1A2F80ED</color>
+    <color name="attachment_pill_stroke">#4D2F80ED</color>
+    <color name="input_pill_stroke">#4D414753</color>
+    <color name="approval_card_bg">#1A2F80ED</color>
+    <color name="approval_card_stroke">#4D2F80ED</color>
+    <color name="nav_floating_bg">#1C2130</color>
+    <color name="nav_floating_border">#2A3244</color>
+    <color name="nav_active_circle_dark">#17382A</color>
+    <color name="chat_message_secondary_text">#888888</color>
+    <color name="icon_dark">#6A6A6A</color>
+    <color name="icon_stroke">#000000</color>
+
+    <!-- Drawer colors - Light mode -->
+    <color name="drawer_background">@color/surface_base</color>
+    <color name="drawer_text">#FFFFFF</color>
+    <color name="drawer_divider">@color/outline_variant</color>
+    <color name="drawer_secondary_text">@color/on_surface_variant</color>
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

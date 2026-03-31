@@ -13,6 +13,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.etgenai.app.R
 import com.etgenai.app.data.model.ChatItem
+import io.noties.markwon.Markwon
+import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
+import io.noties.markwon.ext.tasklist.TaskListPlugin
 
 class ChatAdapter(
     private val onApproveEmail: () -> Unit,
@@ -79,15 +82,22 @@ class ChatAdapter(
     }
 
     class AiVH(view: View) : RecyclerView.ViewHolder(view) {
+
         private val tvText: TextView = view.findViewById(R.id.tvAiMsg)
 
+        private val markwon = Markwon.builder(view.context)
+            .usePlugin(StrikethroughPlugin.create())
+            .usePlugin(TaskListPlugin.create(view.context))
+            .build()
+
         fun bind(item: ChatItem.AiMsg) {
+
             val text = if (item.tools.isEmpty()) {
                 item.text
             } else {
                 item.text + "\n\n🔧 " + item.tools.joinToString(" · ")
             }
-            tvText.text = text
+            markwon.setMarkdown(tvText, text)
         }
     }
 

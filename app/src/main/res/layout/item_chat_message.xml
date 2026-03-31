@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         android:text="User"
-        android:textColor="#888888"
+        android:textColor="@color/chat_message_secondary_text"
         android:textSize="12sp"
         android:textStyle="bold" />
 

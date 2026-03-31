@@ -7,11 +7,12 @@
     android:paddingBottom="8dp"
     android:gravity="start">
 
+    <!-- Label -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="System Agent"
-        android:textColor="@color/primary"
+        android:textColor="?attr/colorPrimary"
         android:textSize="10sp"
         android:textAllCaps="true"
         android:letterSpacing="0.1"
@@ -19,14 +20,16 @@
         android:layout_marginBottom="4dp"
         android:fontFamily="monospace" />
 
+    <!-- Message -->
     <TextView
         android:id="@+id/tvAiMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_bubble_ai"
         android:padding="16dp"
-        android:textColor="@color/on_surface"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="15sp"
+        android:lineSpacingExtra="4dp"
         android:layout_marginEnd="48dp"
         android:textIsSelectable="true"
         android:longClickable="true"

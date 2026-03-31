@@ -64,7 +64,9 @@ data class ThreadsListResponse(
 data class ThreadSummary(
     @SerializedName("thread_id") val threadId: String,
     @SerializedName("message_count") val messageCount: Int = 0,
-    @SerializedName("last_active") val lastActive: String? = null
+    @SerializedName("last_active") val lastActive: String? = null,
+    @SerializedName("title") val title: String? = null,
+    @SerializedName("preview") val preview: String? = null
 )
 
 

@@ -21,7 +21,7 @@
             android:layout_height="64dp"
             android:paddingHorizontal="16dp"
             android:gravity="center_vertical"
-            android:background="#B30D1117"
+            android:background="?attr/colorSurface"
             android:elevation="4dp"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -40,6 +40,7 @@
                 android:layout_weight="1"
                 android:text="@string/app_name"
                 android:textColor="@color/primary"
+                android:background="?attr/colorSurface"
                 android:textStyle="bold"
                 android:letterSpacing="0.1"
                 android:layout_marginStart="16dp" />
@@ -51,6 +52,7 @@
                 android:textColor="@color/outline"
                 android:textSize="9sp"
                 android:fontFamily="monospace"
+                android:background="?attr/colorSurface"
                 android:singleLine="true"
                 android:ellipsize="start"
                 android:maxWidth="120dp"
@@ -62,7 +64,7 @@
             android:id="@+id/topDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#332F80ED"
+            android:background="@color/divider_color"
             app:layout_constraintTop_toBottomOf="@id/topBar" />
 
 
@@ -191,7 +193,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="false"
-        android:background="#00000000">
+        android:background="@android:color/transparent">
 
         <include
             android:id="@+id/drawerContent"

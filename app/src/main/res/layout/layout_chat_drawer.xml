@@ -1,10 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dp"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#0F131A">
-
+    android:background="?attr/colorSurface">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,6 @@
         android:paddingTop="48dp"
         android:paddingHorizontal="20dp"
         android:paddingBottom="12dp">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,19 +24,18 @@
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:src="@drawable/ic_chat"
-                app:tint="@color/primary" />
+                app:tint="?attr/colorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="Axiom"
-                android:textColor="#FFFFFF"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.04" />
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/btnNewChat"
@@ -53,27 +51,27 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:src="@drawable/ic_nav_chat"
-                app:tint="@color/primary" />
+                android:background="@drawable/bg_new_chat_btn"
+                app:tint="?attr/colorOnSecondaryContainer" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="New Chat"
-                android:textColor="@color/primary"
+                android:background="@drawable/bg_new_chat_btn"
+                android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
 
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#1A2235"
+        android:background="?attr/colorOutlineVariant"
         android:layout_marginHorizontal="20dp" />
-
 
     <TextView
         android:layout_width="match_parent"
@@ -82,12 +80,11 @@
         android:paddingTop="14dp"
         android:paddingBottom="6dp"
         android:text="Recent"
-        android:textColor="#6B7280"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:textSize="11sp"
         android:letterSpacing="0.08"
         android:textAllCaps="true"
         android:textStyle="bold" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDrawerThreads"
