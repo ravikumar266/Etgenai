@@ -13,9 +13,9 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.util.UUID
+import kotlinx.coroutines.Job
 
 class ChatViewModel : ViewModel() {
-
 
     private val _chatItems = MutableLiveData<List<ChatItem>>(emptyList())
     val chatItems: LiveData<List<ChatItem>> = _chatItems
@@ -29,17 +29,26 @@ class ChatViewModel : ViewModel() {
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
     var currentThreadId: String? = null
 
+    private var currentJob: Job? = null
 
-
+    // update sendMessage() start + launch handling
     fun sendMessage(text: String) {
+        if (_isLoading.value == true) return
+
+        _isLoading.value = true
         addItem(ChatItem.UserMsg(text))
         addItem(ChatItem.Loading("Agent is thinking..."))
-        viewModelScope.launch {
+
+        currentJob = viewModelScope.launch {
             try {
                 val req = ChatRequest(message = text, threadId = currentThreadId ?: "")
                 val response = RetrofitClient.apiService.chat(req)
+
                 removeLastCard<ChatItem.Loading>()
 
                 if (response.isSuccessful && response.body() != null) {
@@ -47,8 +56,8 @@ class ChatViewModel : ViewModel() {
                     currentThreadId = res.threadId
                     _threadId.value = res.threadId
 
-
-                    addItem(ChatItem.AiMsg(res.reply, res.toolsUsed ?: emptyList()))
+                    val parts = splitMessage(res.reply)
+                    parts.forEach { addItem(it) }
 
                     if (res.emailApprovalRequired && res.pendingEmail != null) {
                         addItem(ChatItem.EmailApproval(res.pendingEmail))
@@ -59,13 +68,20 @@ class ChatViewModel : ViewModel() {
             } catch (e: Exception) {
                 removeLastCard<ChatItem.Loading>()
                 _error.value = "Network error: ${e.message}"
+            } finally {
+                _isLoading.value = false
             }
         }
     }
 
-
+    fun stopResponse() {
+        currentJob?.cancel()
+        removeLastCard<ChatItem.Loading>()
+        _isLoading.value = false
+    }
 
     fun sendMessageWithPdf(text: String, file: File?) {
+        if (_isLoading.value == true) return
         if (file != null) {
             addItem(ChatItem.Loading("Uploading PDF..."))
             viewModelScope.launch {
@@ -73,11 +89,10 @@ class ChatViewModel : ViewModel() {
                     val requestFile = file.asRequestBody("application/pdf".toMediaTypeOrNull())
                     val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-
                     if (currentThreadId == null) {
                         currentThreadId = UUID.randomUUID().toString()
                     }
-                    
+
                     val currentId = currentThreadId ?: "default"
                     val collectionName = currentId.toRequestBody("text/plain".toMediaTypeOrNull())
 
@@ -102,15 +117,15 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-
-
     fun approveEmail(decision: String) {
         removeLastCard<ChatItem.EmailApproval>()
         val threadId = currentThreadId ?: return
+
         viewModelScope.launch {
             try {
                 val req = EmailApprovalRequest(threadId = threadId, decision = decision)
                 val response = RetrofitClient.apiService.approveEmail(req)
+
                 if (response.isSuccessful && response.body() != null) {
                     val res = response.body()!!
                     val icon = if (res.decision == "approved") "✅" else "❌"
@@ -124,23 +139,25 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-
-
     fun loadThread(threadId: String) {
         currentThreadId = threadId
         _threadId.value = threadId
         _chatItems.value = listOf(ChatItem.Loading("Loading conversation..."))
+
         viewModelScope.launch {
             try {
                 val response = RetrofitClient.apiService.getHistory(threadId)
+
                 if (response.isSuccessful && response.body() != null) {
                     val history = response.body()!!
-                    val items = history.messages.map { msg ->
+
+                    val items = history.messages.flatMap { msg ->
                         when (msg.role.lowercase()) {
-                            "human", "user" -> ChatItem.UserMsg(msg.content)
-                            else -> ChatItem.AiMsg(msg.content)
+                            "human", "user" -> listOf(ChatItem.UserMsg(msg.content))
+                            else -> splitMessage(msg.content)
                         }
                     }
+
                     _chatItems.value = if (items.isEmpty()) {
                         listOf(ChatItem.AiMsg("This thread has no messages yet."))
                     } else {
@@ -157,8 +174,6 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-
-
     fun fetchRecentThreads() {
         viewModelScope.launch {
             try {
@@ -166,13 +181,10 @@ class ChatViewModel : ViewModel() {
                 if (response.isSuccessful && response.body() != null) {
                     _recentThreads.value = response.body()!!.threads
                 }
-            } catch (e: Exception) {
-
+            } catch (_: Exception) {
             }
         }
     }
-
-
 
     fun resetThread() {
         viewModelScope.launch {
@@ -190,8 +202,6 @@ class ChatViewModel : ViewModel() {
             }
         }
     }
-
-
 
     fun uploadPdf(file: File, collection: String = "default") {
         addItem(ChatItem.Loading("Ingesting PDF..."))
@@ -227,7 +237,9 @@ class ChatViewModel : ViewModel() {
             try {
                 val req = RagIngestUrlRequest(url, collection)
                 val response = RetrofitClient.apiService.ingestUrl(req)
+
                 removeLastCard<ChatItem.Loading>()
+
                 if (response.isSuccessful && response.body() != null) {
                     val res = response.body()!!
                     if (res.success) {
@@ -245,7 +257,35 @@ class ChatViewModel : ViewModel() {
         }
     }
 
+    private fun splitMessage(text: String): List<ChatItem> {
+        val list = mutableListOf<ChatItem>()
 
+        // Matches full fenced blocks, including ```lang and closing ```
+        val regex = Regex("```[\\w-]*\\n[\\s\\S]*?```", RegexOption.MULTILINE)
+        var last = 0
+
+        for (match in regex.findAll(text)) {
+            if (match.range.first > last) {
+                val before = text.substring(last, match.range.first)
+                if (before.isNotBlank()) {
+                    list.add(ChatItem.AiMsg(before))
+                }
+            }
+
+            // Keep the full block so the adapter can extract language + code
+            list.add(ChatItem.CodeBlock(match.value.trim()))
+            last = match.range.last + 1
+        }
+
+        if (last < text.length) {
+            val after = text.substring(last)
+            if (after.isNotBlank()) {
+                list.add(ChatItem.AiMsg(after))
+            }
+        }
+
+        return list
+    }
 
     private fun addItem(item: ChatItem) {
         val list = _chatItems.value?.toMutableList() ?: mutableListOf()

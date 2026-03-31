@@ -27,5 +27,9 @@
         android:padding="16dp"
         android:textColor="@color/on_surface"
         android:textSize="15sp"
-        android:layout_marginEnd="48dp" />
+        android:layout_marginEnd="48dp"
+        android:textIsSelectable="true"
+        android:longClickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
 </LinearLayout>

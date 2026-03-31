@@ -115,6 +115,7 @@ data class SchedulerJob(
 sealed class ChatItem {
     data class UserMsg(val text: String) : ChatItem()
     data class AiMsg(val text: String, val tools: List<String> = emptyList()) : ChatItem()
+    data class CodeBlock(val code: String) : ChatItem()
     data class EmailApproval(val email: PendingEmail) : ChatItem()
     data class SystemMsg(val text: String) : ChatItem()
     data class Loading(val message: String = "Uploading...") : ChatItem()

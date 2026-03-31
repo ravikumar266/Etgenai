@@ -5,33 +5,37 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.etgenai.app.databinding.FragmentChatBinding
-import java.io.File
-import androidx.core.view.GravityCompat
-import com.etgenai.app.ui.history.ThreadAdapter
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.etgenai.app.R
+import com.etgenai.app.databinding.FragmentChatBinding
+import com.etgenai.app.ui.history.ThreadAdapter
+import java.io.File
 
 class ChatFragment : Fragment() {
 
     private var _binding: FragmentChatBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var viewModel: ChatViewModel
     private lateinit var adapter: ChatAdapter
+
     private var pendingPdfFile: File? = null
 
-    private val pickPdfLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let { handlePdfSelection(it) }
-    }
+    private val pickPdfLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let { handlePdfSelection(it) }
+        }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChatBinding.inflate(inflater, container, false)
@@ -41,14 +45,11 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val incomingThreadId: String? = arguments?.getString("threadId")
 
         viewModel = if (incomingThreadId != null) {
-
             ViewModelProvider(this)[ChatViewModel::class.java]
         } else {
-
             ViewModelProvider(requireActivity())[ChatViewModel::class.java]
         }
 
@@ -62,22 +63,33 @@ class ChatFragment : Fragment() {
         }
         binding.rvChat.adapter = adapter
 
-
         viewModel.chatItems.observe(viewLifecycleOwner) { items ->
             adapter.setItems(items)
-            if (items.isNotEmpty()) binding.rvChat.scrollToPosition(items.size - 1)
+            if (items.isNotEmpty()) {
+                binding.rvChat.scrollToPosition(items.size - 1)
+            }
         }
-
 
         viewModel.threadId.observe(viewLifecycleOwner) { id ->
             binding.tvThreadId.text = if (id.isNullOrEmpty()) "" else "THREAD: ${id.take(8)}"
         }
 
         viewModel.error.observe(viewLifecycleOwner) { err ->
-            if (!err.isNullOrEmpty()) Toast.makeText(requireContext(), err, Toast.LENGTH_SHORT).show()
+            if (!err.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), err, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
+            updateSendButton(loading)
         }
 
         binding.btnSend.setOnClickListener {
+            if (viewModel.isLoading.value == true) {
+                viewModel.stopResponse()
+                return@setOnClickListener
+            }
+
             val txt = binding.etMessage.text.toString().trim()
             if (txt.isNotEmpty() || pendingPdfFile != null) {
                 viewModel.sendMessageWithPdf(txt, pendingPdfFile)
@@ -87,19 +99,18 @@ class ChatFragment : Fragment() {
         }
 
         binding.btnAttach.setOnClickListener {
+            if (viewModel.isLoading.value == true) return@setOnClickListener
             pickPdfLauncher.launch("application/pdf")
         }
 
         binding.btnRemoveAttachment.setOnClickListener {
+            if (viewModel.isLoading.value == true) return@setOnClickListener
             clearPendingPdf()
         }
-
 
         if (incomingThreadId != null && viewModel.currentThreadId != incomingThreadId) {
             viewModel.loadThread(incomingThreadId)
         }
-
-
 
         binding.btnMenu.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
@@ -110,11 +121,13 @@ class ChatFragment : Fragment() {
         val rvDrawerThreads = binding.navView.findViewById<RecyclerView>(R.id.rvDrawerThreads)
 
         btnNewChat.setOnClickListener {
+            if (viewModel.isLoading.value == true) return@setOnClickListener
             viewModel.resetThread()
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
 
         val drawerAdapter = ThreadAdapter { threadId ->
+            if (viewModel.isLoading.value == true) return@ThreadAdapter
             viewModel.loadThread(threadId)
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
@@ -127,16 +140,30 @@ class ChatFragment : Fragment() {
         }
 
         viewModel.fetchRecentThreads()
+        updateSendButton(viewModel.isLoading.value == true)
+    }
+
+    private fun updateSendButton(loading: Boolean) {
+        binding.btnSend.setImageResource(
+            if (loading) R.drawable.ic_stop_square
+            else R.drawable.ic_send
+        )
     }
 
     private fun handlePdfSelection(uri: Uri) {
+        if (viewModel.isLoading.value == true) return
+
         val file = copyUriToTempFile(uri)
         if (file != null) {
             pendingPdfFile = file
             binding.tvAttachmentName.text = file.name
             binding.attachmentPreview.visibility = View.VISIBLE
         } else {
-            Toast.makeText(requireContext(), "Failed to prepare file for upload", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Failed to prepare file for upload",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
