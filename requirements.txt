@@ -1,0 +1,44 @@
+# ── Core framework ─────────────────────────────────────────────────────────────
+fastapi
+uvicorn[standard]
+pydantic
+
+# ── LangChain + LangGraph ──────────────────────────────────────────────────────
+langchain
+langchain-core
+langchain-community
+langchain-google-genai
+langchain-text-splitters
+langgraph
+
+# ── LLM ────────────────────────────────────────────────────────────────────────
+google-generativeai
+
+# ── Web search ─────────────────────────────────────────────────────────────────
+tavily-python
+ddgs
+
+# ── Web scraping ───────────────────────────────────────────────────────────────
+requests
+beautifulsoup4
+
+# ── Google APIs (Docs, Drive, Gmail) ───────────────────────────────────────────
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-api-python-client
+
+# ── RAG pipeline ───────────────────────────────────────────────────────────────
+chromadb
+pypdf
+langchain-huggingface
+sentence-transformers
+
+# ── YouTube ────────────────────────────────────────────────────────────────────
+youtube-transcript-api
+
+# ── Scheduler ──────────────────────────────────────────────────────────────────
+apscheduler
+
+# ── Environment ────────────────────────────────────────────────────────────────
+python-dotenv
