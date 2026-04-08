@@ -278,13 +278,6 @@ User Interaction
 ├── public/
 │   └── (icons, images)
 │
-├── Documentation/
-│   ├── THEME_GUIDE.md           (367 lines)
-│   ├── AXIOM_QUICKSTART.md       (288 lines)
-│   ├── THEME_IMPLEMENTATION.md   (384 lines)
-│   ├── DELIVERY_SUMMARY.md       (442 lines)
-│   └── ARCHITECTURE.md           (This file)
-│
 ├── package.json             ← All deps included
 ├── tsconfig.json            ← TypeScript config
 ├── tailwind.config.ts       ← Tailwind config
